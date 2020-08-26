@@ -21,17 +21,8 @@ func hello(w http.ResponseWriter, req *http.Request) {
 	w.Write(js)
 }
 
-func headers(w http.ResponseWriter, req *http.Request) {
-	for name, headers := range req.Header {
-		for _, h := range headers {
-			fmt.Fprintf(w, "%v: %v\n", name, h)
-		}
-	}
-}
-
 func main() {
 	godotenv.Load()
 	http.HandleFunc("/hello", hello)
-	http.HandleFunc("/headers", headers)
 	http.ListenAndServe(os.Getenv("PORT"), nil)
 }
